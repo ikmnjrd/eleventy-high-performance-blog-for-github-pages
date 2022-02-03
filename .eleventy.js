@@ -66,7 +66,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(pluginNavigation);
 
   eleventyConfig.addPlugin(localImages, {
-    distPath: "_site",
+    distPath: "docs",
     assetPath: "/img/remote",
     selector:
       "img,amp-img,amp-video,meta[property='og:image'],meta[name='twitter:image'],amp-story",
@@ -206,7 +206,7 @@ module.exports = function (eleventyConfig) {
     middleware: cspDevMiddleware,
     callbacks: {
       ready: function (err, browserSync) {
-        const content_404 = fs.readFileSync("_site/404.html");
+        const content_404 = fs.readFileSync("docs/404.html");
 
         browserSync.addMiddleware("*", (req, res) => {
           // Provides the 404 content without redirect.
@@ -225,8 +225,8 @@ module.exports = function (eleventyConfig) {
     // Don't use addPassthroughCopy to prevent apply-csp from running before the _header file has been copied
     try {
       const headers = fs.readFileSync("./_headers", { encoding: "utf-8" });
-      fs.mkdirSync("./_site", { recursive: true });
-      fs.writeFileSync("_site/_headers", headers);
+      fs.mkdirSync("./docs", { recursive: true });
+      fs.writeFileSync("docs/_headers", headers);
     } catch (error) {
       console.log(
         "[beforeBuild] Something went wrong with the _headers file\n",
@@ -267,7 +267,7 @@ module.exports = function (eleventyConfig) {
       includes: "_includes",
       data: "_data",
       // Warning hardcoded throughout repo. Find and replace is your friend :)
-      output: "_site",
+      output: "docs",
     },
   };
 };

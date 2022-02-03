@@ -17,7 +17,7 @@ const { parseHeaders } = require("../_11ty/apply-csp");
 describe("check build output for a generic post", () => {
   describe("sample post", () => {
     const POST_PATH = "/posts/firstpost/";
-    const POST_FILENAME = `_site${POST_PATH}index.html`;
+    const POST_FILENAME = `docs${POST_PATH}index.html`;
     const URL = metadata.url;
     const POST_URL = URL + POST_PATH;
 
@@ -93,9 +93,9 @@ describe("check build output for a generic post", () => {
     });
 
     it("should have a good CSP", () => {
-      assert(existsSync("./_site/_headers"), "_header exists");
+      assert(existsSync("./docs/_headers"), "_header exists");
       const headers = parseHeaders(
-        readFileSync("./_site/_headers", { encoding: "utf-8" })
+        readFileSync("./docs/_headers", { encoding: "utf-8" })
       );
       POST_PATH;
       expect(headers).to.have.key(POST_PATH);
